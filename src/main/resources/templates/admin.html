@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Admin Page</title>
+</head>
+<body>
+<h1>Welcome to Admin PAGE!</h1>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td>
+            <span th:each="role: ${user.roles}" th:text="${role.name} + ' '"></span>
+        </td>
+        <td>
+            <a th:href="@{/admin/edit(id=${user.id})}">
+                <input type="submit" value="Edit">
+            </a>
+            <br>
+            <form th:method="DELETE" th:action="@{/admin/delete(id=${user.id})}">
+                <input type="submit" value="Delete">
+            </form>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/admin/new}" method="get">
+    <input type="submit" value="Add User"/>
+</form>
+<br>
+<form th:action="@{/logout}" method="get">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>

@@ -5,7 +5,13 @@
 </head>
 <body>
 <h1>Welcome to Index PAGE!</h1>
+<div>
 
+    <sec:authorize access="!isAuthenticated()">
+        <h4><a href="/login">Login</a></h4>
+    </sec:authorize>
+
+</div>
 
 </body>
 </html>
