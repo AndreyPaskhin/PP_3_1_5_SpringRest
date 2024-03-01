@@ -6,9 +6,7 @@ import ru.kata.spring.boot_security.demo.entities.Role;
 import ru.kata.spring.boot_security.demo.entities.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-
 import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.Set;
 
 @Component
@@ -39,10 +37,10 @@ public class DBInit {
         User admin = new User("admin", passwordEncoder.encode("admin"), "admin@mail.ru", 30, roleRepository.findAll());
         User user = new User("user", passwordEncoder.encode("user"), "user@mail.ru", 25, Set.of(userRole));
 
-        if (userRepository.findByUsername("admin") == null) {
+        if (userRepository.findByUsername("admin").isEmpty()) {
             userRepository.save(admin);
         }
-        if (userRepository.findByUsername("user") == null) {
+        if (userRepository.findByUsername("user").isEmpty()) {
             userRepository.save(user);
         }
 

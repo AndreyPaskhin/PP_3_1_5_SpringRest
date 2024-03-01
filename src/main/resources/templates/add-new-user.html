@@ -20,17 +20,28 @@
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
     <br/>
     <label for="password">Enter password</label>
-    <input type="text" th:field="*{password}" id="password">
+    <input type="password" th:field="*{password}" id="password">
+    <input type="checkbox" onclick="togglePasswordVisibility()"> Show Password
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
     <br>
     <div class="mb-3">
         <label for="roles">Select roles:</label>
         <select id="roles" name="roles" multiple="multiple">
-            <option th:each="role : ${role}" th:value="${role.id}" th:text="${role.name}"></option>
+            <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
         </select>
     </div>
     <br>
     <input type="submit" value="Create new User"/>
 </form>
+<script>
+    function togglePasswordVisibility() {
+        var password = document.getElementById("password");
+        if (password.type ==='password') {
+            password.type = 'text';
+        } else {
+            password.type = 'password';
+        }
+    }
+</script>
 </body>
 </html>
