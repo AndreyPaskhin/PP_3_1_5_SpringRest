@@ -42,52 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    // аутентификация inMemory в памяти Spring
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
-    // JDBC хранение в базе. Кладем 2 users в заранее созданную таблицу при запуске приложения.
-//    @Bean
-//    public JdbcUserDetailsManager users(DataSource dataSource) {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
-//        if (jdbcUserDetailsManager.userExists(user.getUsername())) {
-//            jdbcUserDetailsManager.deleteUser(user.getUsername());
-//        }
-//        if (jdbcUserDetailsManager.userExists(admin.getUsername())) {
-//            jdbcUserDetailsManager.deleteUser(admin.getUsername());
-//        }
-//        jdbcUserDetailsManager.createUser(user);
-//        jdbcUserDetailsManager.createUser(admin);
-//        return jdbcUserDetailsManager;
-//    }
 
     //Создание таблиц на основе Entities
     @Bean

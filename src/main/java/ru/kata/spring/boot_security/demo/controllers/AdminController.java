@@ -38,8 +38,6 @@ public class AdminController {
     }
     @GetMapping("new")
     public String addUser(@ModelAttribute("user") User user, Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
         model.addAttribute("allRoles", roleService.getAllRole());
         return "add-new-user";
     }

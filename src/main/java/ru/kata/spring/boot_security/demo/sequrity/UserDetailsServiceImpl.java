@@ -27,13 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userOptional.orElseThrow(() ->
                 new UsernameNotFoundException(String.format("User '%s' not found!", username))
         );
-//        if (user.isEmpty()) {
-//            throw new UsernameNotFoundException(String.format("User '%s' not found!", username));
-//        }
-        //return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), mapRoles(user.getRoles()));
         return user;
     }
-//    private Collection<? extends GrantedAuthority> mapRoles(Collection<Role> roles) {
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-//    }
 }
