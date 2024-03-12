@@ -118,25 +118,29 @@
                                                                     <input class="form-control" id="name"
                                                                            th:name="name"
                                                                            th:type="text"
-                                                                           th:value="${user.getName()}">
+                                                                           th:value="${user.getName()}" required minlength="2" maxlength="30">
+                                                                    <div class="invalid-feedback">"Name should not be empty". "Name should be between 2 to 30 characters"</div>
                                                                     <br>
                                                                     <label for="Age">Age</label>
                                                                     <input class="form-control" id="Age"
                                                                            th:name="age"
-                                                                           th:type="text"
-                                                                           th:value="${user.getAge()}">
+                                                                           th:type="number"
+                                                                           th:value="${user.getAge()}" required min="18" max="100">
+                                                                    <div class="invalid-feedback">"Age should not be empty". "Age should be between 18 to 100 characters"</div>
                                                                     <br>
                                                                     <label for="email">Email</label>
                                                                     <input class="form-control" id="email"
                                                                            th:name="email"
-                                                                           th:type="text"
-                                                                           th:value="${user.getEmail()}">
+                                                                           th:type="email"
+                                                                           th:value="${user.getEmail()}" required>
+                                                                    <div class="invalid-feedback">"Email should not be empty". "Email should be valid"</div>
                                                                     <br>
                                                                     <label for="password">Password</label>
                                                                     <input class="form-control" id="password"
                                                                            th:name="password"
-                                                                           th:type="text"
-                                                                           value="">
+                                                                           th:type="password"
+                                                                           value="" required>
+                                                                    <div class="invalid-feedback">"Password should not be empty"</div>
                                                                     <br>
                                                                     <label for="userRolesEdit">Roles</label>
                                                                     <select class="form-control" id="userRolesEdit"
@@ -247,29 +251,37 @@
                                         <div class="row">
                                             <div class="col-4"></div>
                                             <div class="h6 col-4">
-                                                <label for="Name">Name</label>
-                                                <input class="form-control" id="Name"
+                                                <label for="userUsernameNew">Name</label>
+                                                <input class="form-control" id="userUsernameNew"
                                                        placeholder="Name"
-                                                       th:name="name"
+                                                       th:field="*{name}" required minlength="2" maxlength="30"
+                                                       th:name="username"
                                                        th:type="text">
+                                                <div class="invalid-feedback">"Name should not be empty". "Name should be between 2 to 30 characters"</div>
                                                 <br>
-                                                <label for="age">Age</label>
-                                                <input class="form-control" id="Age"
+                                                <label for="userAgeNew">Age</label>
+                                                <input class="form-control" id="userAgeNew"
                                                        placeholder="Age"
+                                                       th:field="*{age}" required min="18" max="100"
                                                        th:name="age"
-                                                       th:type="text">
+                                                       th:type="number">
+                                                <div class="invalid-feedback">"Age should not be empty". "Age should be between 18 to 100 characters"</div>
                                                 <br>
-                                                <label for="Email">Email</label>
-                                                <input class="form-control" id="Email"
+                                                <label for="userEmailNew">Email</label>
+                                                <input class="form-control" id="userEmailNew"
                                                        placeholder="Email"
+                                                       th:field="*{email}" required
                                                        th:name="email"
-                                                       th:type="text">
+                                                       th:type="email">
+                                                <div class="invalid-feedback">"Email should not be empty". "Email should be valid"</div>
                                                 <br>
-                                                <label for="Password">Password</label>
-                                                <input class="form-control" id="Password"
-                                                       placeholder="password"
+                                                <label for="password">Password</label>
+                                                <input class="form-control" id="password"
+                                                       placeholder="Password"
+                                                       th:field="*{password}" required
                                                        th:name="password"
                                                        th:type="password">
+                                                <div class="invalid-feedback">"Password should not be empty"</div>
                                                 <br>
                                                 <label for="userRolesNew">Roles</label>
                                                 <select class="form-control" id="userRolesNew"
