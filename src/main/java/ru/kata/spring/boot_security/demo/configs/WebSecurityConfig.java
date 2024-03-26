@@ -26,17 +26,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http    //Настройка авторизации
+                .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/", "/index").permitAll()  //Доступ для всех пользователей
-                    .antMatchers("/admin/**").hasRole("ADMIN")  //Доступ для администратора
-                    .antMatchers("/user/**").hasAnyRole("ADMIN", "USER") //Доступ для администратора и юзера
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/api/admin/**").hasAnyRole("ADMIN")//Доступ для администратора
+                    .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                    .antMatchers("/api/user").hasAnyRole("ADMIN", "USER")//Доступ для администратора и юзера
                     .anyRequest().authenticated()   //Все остальные страницы требуют аутентификации
                     // Завершение авторизации
                 .and()
                 //Настройка для входа в систему пользователям(авторизация)
                     .formLogin().successHandler(successUserHandler)
                     .permitAll()
-                .and()
+                    .and()
                 //Выход из аккаунта
                     .logout().logoutSuccessUrl("/login")
                     .permitAll();
