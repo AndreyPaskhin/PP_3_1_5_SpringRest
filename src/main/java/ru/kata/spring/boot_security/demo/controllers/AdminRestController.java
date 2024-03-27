@@ -61,5 +61,16 @@ public class AdminRestController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @GetMapping("/roles")
+    public List<Role> getAllRoles() {
+        return roleService.getAllRole();
+    }
+
+    @GetMapping("/roles/{id}")
+    public ResponseEntity<Role> getRoleById(@PathVariable Long id) {
+        Role role = roleService.userById(id);
+        return ResponseEntity.ok(role);
+    }
+
 
 }

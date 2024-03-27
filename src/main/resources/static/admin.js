@@ -73,15 +73,26 @@ getUserPage();
 // Добавление пользователя
 document.getElementById('newUserForm').addEventListener('submit', (e) => {
     e.preventDefault()
-    let role = document.getElementById('role_select')
-    let rolesAddUser = []
-    let rolesAddUserValue = ''
-    for (let i = 0; i < role.options.length; i++) {
-        if (role.options[i].selected) {
-            rolesAddUser.push({id: role.options[i].value, name: 'ROLE_' + role.options[i].innerHTML})
-            rolesAddUserValue += role.options[i].innerHTML
-        }
+    // let role = document.getElementById('role_select')
+    // let rolesAddUser = []
+    // let rolesAddUserValue = ''
+    // for (let i = 0; i < role.options.length; i++) {
+    //     if (role.options[i].selected) {
+    //         rolesAddUser.push({id: role.options[i].value, name: 'ROLE_' + role.options[i].innerHTML})
+    //         rolesAddUserValue += role.options[i].innerHTML
+    //     }
+    // }
+
+    let rolesAddUser = [];
+    for (let i = 0; i < document.forms["newUserForm"].roles.options.length; i++) {
+        if (document.forms["newUserForm"].roles.options[i].selected)
+            rolesAddUser.push({
+                id:document.forms["newUserForm"].roles.options[i].value,
+                role:"ROLE " + document.forms["newUserForm"].roles.options[i].text
+            });
     }
+
+
     fetch(url + '/save', {
         method: 'POST',
         headers: {
@@ -102,6 +113,22 @@ document.getElementById('newUserForm').addEventListener('submit', (e) => {
             }
         })
 })
+function loadRolesNewUser() {
+    let selectAdd = document.getElementById("role_select");
+    selectAdd.innerHTML = "";
+    fetch("http://localhost:8080/api/admin/roles")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(role => {
+                let option = document.createElement("option");
+                option.value = role.id;
+                option.text = role.name.toString().replace('ROLE ', '');
+                selectAdd.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+}
+window.addEventListener("load", loadRolesNewUser);
 
 
 // Закрытие модального окна
@@ -146,14 +173,23 @@ async function editUser() {
     let emailValue = document.getElementById("editEmail").value;
     let passwordValue = document.getElementById("editPassword").value;
     let listOfRole = [];
-    for (let i = 0; i < form_ed.roles.options.length; i++) {
-        if (form_ed.roles.options[i].selected) {
-            let tmp = {};
-            tmp["id"] = form_ed.roles.options[i].value
-            listOfRole.push(tmp);
-            console.log(listOfRole);
-        }
+    // for (let i = 0; i < form_ed.roles.options.length; i++) {
+    //     if (form_ed.roles.options[i].selected) {
+    //         let tmp = {};
+    //         tmp["id"] = form_ed.roles.options[i].value
+    //         listOfRole.push(tmp);
+    //         console.log(listOfRole);
+    //     }
+    // }
+    for (let i = 0; i < document.forms["modalEdit"].roles.options.length; i++) {
+        if (document.forms["modalEdit"].roles.options[i].selected)
+            listOfRole.push({
+                id: document.forms["modalEdit"].roles.options[i].value,
+                role: "ROLE " + document.forms["modalEdit"].roles.options[i].text
+            });
     }
+
+
     let user = {
         id: idValue,
         name: nameValue,
@@ -173,6 +209,23 @@ async function editUser() {
     closeModal()
     getAllUsers()
 }
+function loadRolesEdit() {
+    let selectEdit = document.getElementById("editRole");
+    selectEdit.innerHTML = "";
+
+    fetch("http://localhost:8080/api/admin/roles")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(role => {
+                let option = document.createElement("option");
+                option.value = role.id;
+                option.text = role.name.toString().replace('ROLE ', '');
+                selectEdit.appendChild(option);
+            });
+        })
+        .catch(error => console.error(error));
+}
+window.addEventListener("load", loadRolesEdit);
 
 
 // Удаление пользователя
